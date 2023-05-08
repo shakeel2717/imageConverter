@@ -12,7 +12,7 @@
 
         <div class="row gy-4 pricing-item aos-init aos-animate" data-aos="fade-up" data-aos-delay="100">
             <div class="col-lg-12 w-100 text-center">
-                <h3>Your Audio: </h3>
+                <h3>Your Image: </h3>
                 <img src="{{ asset('text/') }}/{{ session('result')['img'] }}" alt="Uploaded Image">
             </div>
             <div class="col-lg-12 text-center">

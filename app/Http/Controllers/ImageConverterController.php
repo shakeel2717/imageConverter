@@ -38,7 +38,7 @@ class ImageConverterController extends Controller
             mkdir($audioFolder, 0777, true);
         }
         $outputFile = $audioFolder . '/' . rand(000000, 999999) . '.wav';
-        exec('espeak-ng -w ' . $outputFile . ' "' . $text['data'] . '"');
+        exec('espeak-ng -p 75 -s 150 -w ' . $outputFile . ' "' . $text['data'] . '"');
         return back()->with('result', ['img' => $text['img'], 'audio' => $outputFile]);
     }
 
