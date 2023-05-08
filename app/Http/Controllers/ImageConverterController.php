@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use Illuminate\Http\Request;
+use thiagoalessio\TesseractOCR\TesseractOCR;
 
 class ImageConverterController extends Controller
 {
@@ -19,10 +21,19 @@ class ImageConverterController extends Controller
         ]);
 
         // get picture
-        $profile = $request->file('img');
-        $profile_name = time() . rand(000, 999) . '.' . $profile->getClientOriginalExtension();
-        $profile->move(public_path('text'), $profile_name);
+        $img = $request->file('img');
+        $img_name = time() . rand(000, 999) . '.' . $img->getClientOriginalExtension();
+        $img->move(public_path('text'), $img_name);
 
-        return back()->with('success', 'Image Converted to Text Successfully');
+        try {
+
+            $data = (new TesseractOCR('text/' . $img_name))
+                ->setLanguage('eng')
+                ->run();
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        return back()->with('result', ['img' => $img_name, 'data' => $data]);
     }
 }
