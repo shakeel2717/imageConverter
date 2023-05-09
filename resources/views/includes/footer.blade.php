@@ -17,11 +17,10 @@
             <div class="col-lg-4 col-6 footer-links">
                 <h4>Useful Links</h4>
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Image to TEXT</a></li>
-                    <li><a href="#">Image to AUDIO</a></li>
-                    <li><a href="#">Image to VIDEO</a></li>
-                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="{{ route('index') }}">Home</a></li>
+                    <li><a href="{{ route('img-to-text') }}">Image to TEXT</a></li>
+                    <li><a href="{{ route('img-to-audio') }}">Image to AUDIO</a></li>
+                    <li><a href="{{ route('img-to-video') }}">Image to VIDEO</a></li>
                 </ul>
             </div>
 

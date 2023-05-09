@@ -56,7 +56,7 @@
                     <div class="card-img">
                         <img src="{{ asset('assets/img/text.png') }}" alt="" class="img-fluid">
                     </div>
-                    <h3><a href="#" class="stretched-link">IMAGE TO TEXT</a></h3>
+                    <h3><a href="{{ route('img-to-text') }}" class="stretched-link">IMAGE TO TEXT</a></h3>
                     <p>Convert any image to text with our advanced OCR technology. Simply upload your image and get a downloadable text file. Perfect for digitizing documents or extracting text from images.</p>
                 </div>
             </div><!-- End Card Item -->
@@ -66,7 +66,7 @@
                     <div class="card-img">
                         <img src="{{ asset('assets/img/audio.png') }}" alt="" class="img-fluid">
                     </div>
-                    <h3><a href="#" class="stretched-link">IMAGE TO AUDIO</a></h3>
+                    <h3><a href="{{ route('img-to-audio') }}" class="stretched-link">IMAGE TO AUDIO</a></h3>
                     <p>Transform any image into an audio file with our cutting-edge technology. Choose from different audio formats and adjust the speed and pitch of the audio to fit your needs. Great for creating podcasts or audiobooks.</p>
                 </div>
             </div><!-- End Card Item -->
@@ -76,7 +76,7 @@
                     <div class="card-img">
                         <img src="{{ asset('assets/img/video.png') }}" alt="" class="img-fluid">
                     </div>
-                    <h3><a href="#" class="stretched-link">IMAGE TO VIDEO</a></h3>
+                    <h3><a href="{{ route('img-to-video') }}" class="stretched-link">IMAGE TO VIDEO</a></h3>
                     <p>Easily convert your image to a video with our powerful software. Add background music, captions, and transitions to create a professional-looking video. Ideal for creating slideshows or social media content.</p>
                 </div>
             </div><!-- End Card Item -->

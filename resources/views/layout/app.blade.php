@@ -38,8 +38,8 @@
                     <h2 data-aos="fade-up">Effortlessly Convert Images to Text, Audio, and Video</h2>
                     <p data-aos="fade-up" data-aos-delay="100">Welcome to our comprehensive image conversion service. Our cutting-edge application allows you to effortlessly convert your images to text, audio, and video with just a few clicks. No more struggling with complicated conversion tools or software – our streamlined platform makes the conversion process simple and hassle-free.</p>
                     <div class="col">
-                        <button type="submit" class="btn btn-primary btn-lg">Convert Image to Text</button>
-                        <button type="submit" class="ms-4 btn btn-primary btn-lg">Convert Image to Audio</button>
+                        <a href="{{ route('img-to-text') }}" class="btn btn-primary btn-lg">Convert Image to Text</a>
+                        <a href="{{ route('img-to-audio') }}" class="ms-4 btn btn-primary btn-lg">Convert Image to Audio</a>
                     </div>
                 </div>
 
