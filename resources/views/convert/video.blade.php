@@ -44,6 +44,43 @@
                         <label for="img">Upload your Image</label>
                         <input type="file" name="img" id="img" class="form-control">
                     </div>
+                    <div class="form-group">
+                        <label for="color">Select Background Image</label>
+                        <select name="color" id="color" class="form-control">
+                            <option value="pink" selected>Pink</option>
+                            <option value="red">Red</option>
+                            <option value="orange">Orange</option>
+                            <option value="black">Black</option>
+                            <option value="blue">Blue</option>
+                            <option value="white">White</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="textColor">Select Text Color</label>
+                        <select name="textColor" id="textColor" class="form-control">
+                            <option value="pink" selected>Pink</option>
+                            <option value="red">Red</option>
+                            <option value="orange">Orange</option>
+                            <option value="black">Black</option>
+                            <option value="blue">Blue</option>
+                            <option value="white">White</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="fontSize">Font Size in Video</label>
+                        <select name="fontSize" id="fontSize" class="form-control">
+                            <option value="10" selected>10</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="40">40</option>
+                            <option value="50">50</option>
+                            <option value="60">60</option>
+                            <option value="70">70</option>
+                            <option value="80">80</option>
+                            <option value="90">90</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
                     <div class="form-group mt-3 row">
                         <button type="submit" class="btn btn-primary btn-lg btn-block">Generate VIDEO</button>
                     </div>

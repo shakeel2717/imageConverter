@@ -64,18 +64,18 @@
                                     echo "Not Available";
                                 } else {
                                 ?>
-                                    <audio src="{{ asset(session('result')['audio']) }}" autoplay controls></audio>
+                                    <audio src="{{ $history->audio }}" controls></audio>
                                 <?php
                                 }
                                 ?>
                             </td>
                             <td><?php
-                                if (!$history->audio) {
+                                if (!$history->video) {
                                     echo "Not Available";
                                 } else {
                                 ?>
-                                    <video width="100%" height="auto" autoplay controls>
-                                        <source src="{{ session('result')['video'] }}" type="video/mp4">
+                                    <video width="300px" height="100px" controls>
+                                        <source src="{{ $history->video }}" type="video/mp4">
                                         Your browser does not support the video tag.
                                     </video>
                                 <?php

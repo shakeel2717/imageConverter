@@ -43,6 +43,12 @@ class ImageConverterController extends Controller
         }
         $outputFile = $audioFolder . '/' . rand(000000, 999999) . '.wav';
         exec('espeak-ng -p 75 -s 150 -w ' . $outputFile . ' "' . $text['data'] . '"');
+
+        $history = History::find($text['history']);
+        $history->type = 'Image to Audio';
+        $history->audio = $outputFile;
+        $history->save();
+
         return back()->with('result', ['img' => $text['img'], 'audio' => $outputFile]);
     }
 
@@ -55,6 +61,12 @@ class ImageConverterController extends Controller
 
     public function videoConvert(Request $request)
     {
+        $validated = $request->validate([
+            'color' => 'required|string|min:1',
+            'fontSize' => 'required|string|min:1',
+            'textColor' => 'required|string|min:1',
+        ]);
+
         $text = $this->getText($request->file('img'));
         $text['data'] = preg_replace("/\r|\n/", " ", $text['data']);
         $outputImg = $text['img'];
@@ -72,8 +84,10 @@ class ImageConverterController extends Controller
             mkdir($videoFolder, 0777, true);
         }
         $videoName = $videoFolder . '/' . rand(000000, 999999) . '.mp4'; // name of output video
-        $backgroundColor = 'pink'; // background color of video
-        $text = $text['data']; // text to be displayed in video
+        $backgroundColor = $validated['color']; // background color of video
+        $textColor = $validated['textColor']; // background color of video
+        $fontSize = $validated['fontSize']; // background color of video
+        $data = $text['data']; // text to be displayed in video
         $audioPath = $audioFile; // path to audio file
 
         // Run the ffmpeg command to get the duration of the audio file
@@ -83,8 +97,15 @@ class ImageConverterController extends Controller
         // Calculate the duration of the audio file in seconds
         $duration_seconds = ($matches[1] * 3600) + ($matches[2] * 60) + $matches[3] + 3;
 
-        $cmd = "$ffmpegPath -y -f lavfi -i color=c=$backgroundColor:s=1920x1080:d=$duration_seconds -i $audioPath -filter_complex \"[0:v]drawtext=fontfile=/Windows/Fonts/arial.ttf:text='$text':fontcolor=white:fontsize=50:y=(h-text_h)/2:x=-200*t:box=1:boxcolor=black@0.5:boxborderw=5[v];[v][1:a]concat=n=1:v=1:a=1\" $videoName";
+        $cmd = "$ffmpegPath -y -f lavfi -i color=c=$backgroundColor:s=1920x1080:d=$duration_seconds -i $audioPath -filter_complex \"[0:v]drawtext=fontfile=/Windows/Fonts/arial.ttf:text='$data':fontcolor='$textColor':fontsize='$fontSize':y=(h-text_h)/2:x=-200*t:box=1:boxcolor=black@0.5:boxborderw=5[v];[v][1:a]concat=n=1:v=1:a=1\" $videoName";
         exec($cmd);
+
+
+        $history = History::find($text['history']);
+        $history->type = 'Image to Video';
+        $history->video = $videoName;
+        $history->save();
+
         return back()->with('result', ['img' => $outputImg, 'video' => $videoName]);
     }
 
@@ -113,11 +134,10 @@ class ImageConverterController extends Controller
             $history->attachment = $img_name;
             $history->result = $data;
             $history->save();
-            
         } catch (Exception $e) {
             return false;
         }
 
-        return ['img' => $img_name, 'data' => $data];
+        return ['img' => $img_name, 'data' => $data, 'history' => $history->id];
     }
 }
