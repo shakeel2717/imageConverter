@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\History;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -17,8 +18,11 @@ class ImageConverterController extends Controller
 
     public function textConvert(Request $request)
     {
-
         $text = $this->getText($request->file('img'));
+        if (!$text) {
+            return back()->withErrors("Image Not Readable");
+        }
+
         return back()->with('result', ['img' => $text['img'], 'data' => $text['data']]);
     }
 
@@ -87,7 +91,7 @@ class ImageConverterController extends Controller
     public function getText($img)
     {
         $validated = Validator::make(['img' => $img], [
-            'img' => 'required|image|mimes:jpeg,png,jpg|max:5000',
+            'img' => 'required|image|mimes:jpeg,gif,png,jpg|max:5000',
         ]);
 
         if ($validated->fails()) {
@@ -102,8 +106,16 @@ class ImageConverterController extends Controller
             $data = (new TesseractOCR('text/' . $img_name))
                 ->setLanguage('eng')
                 ->run();
+
+            // saving data to database
+            $history = new History();
+            $history->type = 'Image to Text';
+            $history->attachment = $img_name;
+            $history->result = $data;
+            $history->save();
+            
         } catch (Exception $e) {
-            echo $e->getMessage();
+            return false;
         }
 
         return ['img' => $img_name, 'data' => $data];
