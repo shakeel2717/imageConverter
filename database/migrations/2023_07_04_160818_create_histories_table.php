@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('type')->default('Image to Text');
             $table->string('attachment');
-            $table->string('result');
+            $table->longText('result');
             $table->string('audio')->nullable();
             $table->string('video')->nullable();
             $table->timestamps();
